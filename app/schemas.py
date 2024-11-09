@@ -1,18 +1,18 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import List
+from app.models import PetType, PetStatus
 
 
 class PetCreate(BaseModel):
-    type: str
+    type: PetType
     description: str
     name: str
-    status: str
+    status: PetStatus
     location: str
     alive: bool
     contact: str
     date: datetime
-    images: List[str] = []
 
 
 class PetUpdate(BaseModel):
