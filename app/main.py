@@ -9,6 +9,7 @@ from datetime import datetime
 from app.database import create_supabase_client
 from app.schemas import PetCreate, PetUpdate
 from app.crud import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
+from app.config import cloudinary
 
 app = FastAPI(debug=True)
 
@@ -20,8 +21,12 @@ supabase = create_supabase_client()
 
 
 async def upload_images(files: List[UploadFile]):
-    # TODO cloduinary upload
-    return [{"url": "http://example.com/image.jpg"}]
+    uploaded_images = []
+    for file in files:
+        contents = await file.read()
+        response = cloudinary.uploader.upload(contents, resource_type="image")
+        uploaded_images.append({"url": response["secure_url"]})
+    return uploaded_images
 
 
 @app.get("/pets")
