@@ -48,6 +48,17 @@ async def read_pet(id: str):
 
 @app.post("/pets", status_code=201)
 async def create_new_pet(pet: str = Form(...), files: List[UploadFile] = File(...)):
+    """
+    The 'pet' parameter expects a JSON string that matches the PetCreate structure: 
+        type: PetType
+        description: str
+        name: str
+        status: PetStatus
+        location: str
+        alive: bool
+        contact: str
+        date: datetime
+    """
     try:
         pet_data = json.loads(pet)
         pet_data['date'] = datetime.fromisoformat(pet_data['date'])
