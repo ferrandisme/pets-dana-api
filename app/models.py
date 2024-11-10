@@ -26,6 +26,6 @@ class Pet(BaseModel):
     alive: bool
     contact: str
     date: datetime
-    atHome: bool
+    athome: bool
     created_by: str
     created_at: datetime

@@ -15,8 +15,8 @@ async def get_all_pets(supabase: Client):
         if isinstance(pet_data['images'], str):
             pet_data['images'] = json.loads(pet_data['images'])
 
-        if 'atHome' not in pet_data:
-            pet_data['atHome'] = False
+        if 'athome' not in pet_data:
+            pet_data['athome'] = False
 
         pet = Pet(**pet_data)
         pets.append(pet)
@@ -32,8 +32,8 @@ async def get_pet_by_id(supabase: Client, id: str):
     if isinstance(pet_data['images'], str):
         pet_data['images'] = json.loads(pet_data['images'])
 
-    if 'atHome' not in pet_data:
-        pet_data['atHome'] = False
+    if 'athome' not in pet_data:
+        pet_data['athome'] = False
 
     pet = Pet(**pet_data)
     return pet
@@ -59,9 +59,10 @@ async def create_pet(supabase: Client, pet: PetCreate, uploaded_image_json: str)
     return response.data
 
 
-async def update_pet(supabase: Client, id: str, atHome: bool):
+async def update_pet(supabase: Client, id: str, athome: bool):
     response = supabase.table("pets").update(
-        {"atHome": atHome}).eq("id", id).execute()
+        {"athome": athome}).eq("id", id).execute()
+    print(response)
     return response.data
 
 
